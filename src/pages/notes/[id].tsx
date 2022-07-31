@@ -1,9 +1,11 @@
 import { Container, Text } from "@mantine/core";
-import { withPageAuth, getUser } from "@supabase/auth-helpers-nextjs";
-import useSWR from "swr";
+import {
+  withPageAuth,
+  getUser,
+  supabaseServerClient,
+} from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
-import { fetcher } from "@/lib/fetcher";
 
 import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";
@@ -11,16 +13,14 @@ import type { GetServerSideProps, NextPage } from "next";
 
 type Props = {
   user: User;
-  noteId: Note["id"];
+  note: Note;
 };
 
-const NoteById: NextPage<Props> = ({ user, noteId }) => {
-  const { data } = useSWR<Note>(`/api/notes/${noteId}`, fetcher);
-
+const NoteById: NextPage<Props> = ({ user, note }) => {
   return (
     <Layout user={user}>
       <Container>
-        <Text>{data?.text}</Text>
+        <Text>{note.content}</Text>
       </Container>
     </Layout>
   );
@@ -32,7 +32,17 @@ const getServerSidePropsHandler: GetServerSideProps<Props> = async (
   const id = context.query.id as string;
   const { user } = await getUser(context);
 
-  return { props: { user, noteId: id } };
+  const { data: note } = await supabaseServerClient(context)
+    .from<Note>("notes")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (note == null) {
+    return { notFound: true };
+  }
+
+  return { props: { user, note } };
 };
 
 export const getServerSideProps = withPageAuth({

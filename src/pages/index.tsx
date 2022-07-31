@@ -16,9 +16,9 @@ type Props = {
 };
 
 const Notes: NextPage<Props> = ({ user }) => {
-  const { data = [] } = useSWR<Note[]>("/api/notes", fetcher);
+  const { data: notes = [] } = useSWR<Note[]>("/api/notes", fetcher);
 
-  const rows = data.map((item) => {
+  const rows = notes.map((item) => {
     return (
       <tr key={item.id}>
         <td>
@@ -27,7 +27,7 @@ const Notes: NextPage<Props> = ({ user }) => {
           </Anchor>
         </td>
         <td>{item.user_id}</td>
-        <td>{item.text}</td>
+        <td>{item.content}</td>
         <td>
           <Group>
             <EditNote note={item} />
@@ -41,7 +41,7 @@ const Notes: NextPage<Props> = ({ user }) => {
   return (
     <Layout user={user}>
       <Container>
-        <AddNote user_id={user.id} />
+        <AddNote userId={user.id} />
 
         <ScrollArea>
           <Table sx={{ minWidth: 800 }} verticalSpacing="xs">
@@ -49,7 +49,7 @@ const Notes: NextPage<Props> = ({ user }) => {
               <tr>
                 <th>ID</th>
                 <th>User ID</th>
-                <th>Text</th>
+                <th>Content</th>
                 <th>Actions</th>
               </tr>
             </thead>

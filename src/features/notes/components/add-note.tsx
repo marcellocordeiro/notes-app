@@ -1,4 +1,5 @@
 import { Modal, Button, Group, TextInput, Space } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
@@ -9,14 +10,14 @@ import type { Note } from "../types";
 import type { User } from "@/features/user";
 
 type Props = {
-  user_id: User["id"];
+  userId: User["id"];
 };
 
 type AddNoteFormData = {
-  text: string;
+  content: string;
 };
 
-export const AddNote = ({ user_id }: Props) => {
+export const AddNote = ({ userId }: Props) => {
   const { mutate } = useSWRConfig();
 
   const [opened, setOpened] = useState(false);
@@ -32,11 +33,16 @@ export const AddNote = ({ user_id }: Props) => {
 
     const { error } = await supabaseClient
       .from<Note>("notes")
-      .insert({ text: formData.text, user_id })
+      .insert({ content: formData.content, user_id: userId })
       .single();
 
-    if (error) {
-      alert(error.message);
+    if (error != null) {
+      showNotification({
+        title: "Error adding note",
+        message: error.message,
+        color: "red",
+      });
+
       setIsLoading(false);
     } else {
       await mutate("/api/notes");
@@ -52,7 +58,8 @@ export const AddNote = ({ user_id }: Props) => {
             <>
               <TextInput
                 label="New note"
-                {...register("text", { required: true })}
+                autoComplete="off"
+                {...register("content", { required: true })}
               />
 
               <Space h="md" />
@@ -65,7 +72,7 @@ export const AddNote = ({ user_id }: Props) => {
         </Form>
       </Modal>
 
-      <Group position="center">
+      <Group>
         <Button onClick={() => setOpened(true)}>Add note</Button>
       </Group>
     </>

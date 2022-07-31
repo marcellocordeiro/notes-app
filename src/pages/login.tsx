@@ -6,6 +6,7 @@ import {
   Container,
   Button,
 } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -31,7 +32,12 @@ const Login: NextPage = () => {
     const { error } = await supabaseClient.auth.signIn({ email, password });
 
     if (error != null) {
-      alert(error.message);
+      showNotification({
+        title: "Error logging in",
+        message: error.message,
+        color: "red",
+      });
+
       setIsLoading(false);
     } else {
       router.push("/");

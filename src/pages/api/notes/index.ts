@@ -7,15 +7,15 @@ import type { Note } from "@/features/notes";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Note[]>) => {
-  const { data } = await supabaseServerClient({ req, res })
+  const { data: notes } = await supabaseServerClient({ req, res })
     .from<Note>("notes")
     .select("*");
 
-  if (data == null) {
+  if (notes == null) {
     return res.status(404);
   }
 
-  return res.status(200).json(data);
+  return res.status(200).json(notes);
 };
 
 export default withApiAuth(handler);

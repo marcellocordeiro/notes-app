@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { UserProvider } from "@supabase/auth-helpers-react";
 
@@ -11,9 +12,11 @@ const App = ({ Component, pageProps }: AppProps) => {
       withNormalizeCSS
       theme={{ colorScheme: "dark" }}
     >
-      <UserProvider supabaseClient={supabaseClient}>
-        <Component {...pageProps} />
-      </UserProvider>
+      <NotificationsProvider>
+        <UserProvider supabaseClient={supabaseClient}>
+          <Component {...pageProps} />
+        </UserProvider>
+      </NotificationsProvider>
     </MantineProvider>
   );
 };

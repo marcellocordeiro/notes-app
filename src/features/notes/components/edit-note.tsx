@@ -1,4 +1,5 @@
 import { Modal, Button, TextInput, Space, ActionIcon } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
@@ -13,7 +14,7 @@ type Props = {
 };
 
 type EditNoteFormData = {
-  text: string;
+  content: string;
 };
 
 export const EditNote = ({ note }: Props) => {
@@ -32,12 +33,17 @@ export const EditNote = ({ note }: Props) => {
 
     const { error } = await supabaseClient
       .from<Note>("notes")
-      .update({ text: formData.text })
+      .update({ content: formData.content })
       .eq("id", note.id)
       .single();
 
-    if (error) {
-      alert(error.message);
+    if (error != null) {
+      showNotification({
+        title: "Error editting note",
+        message: error.message,
+        color: "red",
+      });
+
       setIsLoading(false);
     } else {
       await mutate("/api/notes");
@@ -50,13 +56,14 @@ export const EditNote = ({ note }: Props) => {
       <Modal title="Edit note" opened={opened} onClose={() => setOpened(false)}>
         <Form
           onSubmit={handleSubmit}
-          options={{ defaultValues: { text: note.text } }}
+          options={{ defaultValues: { content: note.content } }}
         >
           {({ register }) => (
             <>
               <TextInput
                 label="Note"
-                {...register("text", { required: true })}
+                autoComplete="off"
+                {...register("content", { required: true })}
               />
 
               <Space h="md" />

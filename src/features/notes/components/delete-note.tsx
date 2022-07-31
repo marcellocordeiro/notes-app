@@ -1,4 +1,5 @@
 import { Modal, Button, Space, ActionIcon, Text, Group } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
@@ -29,8 +30,13 @@ export const DeleteNote = ({ note }: Props) => {
       .delete()
       .eq("id", note.id);
 
-    if (error) {
-      alert(error.message);
+    if (error != null) {
+      showNotification({
+        title: "Error deleting note",
+        message: error.message,
+        color: "red",
+      });
+
       setIsLoading(false);
     } else {
       await mutate("/api/notes");
