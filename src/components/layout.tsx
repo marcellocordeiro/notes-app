@@ -1,7 +1,8 @@
 import { AppShell } from "@mantine/core";
-import { User } from "@supabase/supabase-js";
 
 import { Header } from "./header";
+
+import type { User } from "@/features/user";
 
 type Props = {
   user: User;

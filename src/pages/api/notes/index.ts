@@ -1,15 +1,12 @@
-import {
-  withApiAuth,
-  supabaseServerClient,
-} from "@supabase/auth-helpers-nextjs";
+import { withApiAuth } from "@supabase/auth-helpers-nextjs";
+
+import { notesTableServer } from "@/features/notes/api";
 
 import type { Note } from "@/features/notes";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Note[]>) => {
-  const { data: notes } = await supabaseServerClient({ req, res })
-    .from<Note>("notes")
-    .select("*");
+  const { data: notes } = await notesTableServer({ req, res }).select("*");
 
   if (notes == null) {
     return res.status(404);

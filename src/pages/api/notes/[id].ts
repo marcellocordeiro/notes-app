@@ -1,9 +1,7 @@
-import {
-  withApiAuth,
-  supabaseServerClient,
-} from "@supabase/auth-helpers-nextjs";
+import { withApiAuth } from "@supabase/auth-helpers-nextjs";
 
-import type { Note } from "@/features/notes";
+import { notesTableServer } from "@/features/notes/api";
+
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -11,8 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "GET": {
-      const { data } = await supabaseServerClient({ req, res })
-        .from<Note>("notes")
+      const { data } = await notesTableServer({ req, res })
         .select("*")
         .eq("id", id)
         .single();

@@ -1,9 +1,10 @@
 import { Modal, Button, Space, ActionIcon, Text, Group } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useSWRConfig } from "swr";
+
+import { notesTableClient } from "../api/notes-table";
 
 import type { Note } from "../types";
 
@@ -25,10 +26,7 @@ export const DeleteNote = ({ note }: Props) => {
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    const { error } = await supabaseClient
-      .from<Note>("notes")
-      .delete()
-      .eq("id", note.id);
+    const { error } = await notesTableClient.delete().eq("id", note.id);
 
     if (error != null) {
       showNotification({

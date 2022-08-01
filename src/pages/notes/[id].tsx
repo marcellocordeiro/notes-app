@@ -1,11 +1,8 @@
 import { Container, Text } from "@mantine/core";
-import {
-  withPageAuth,
-  getUser,
-  supabaseServerClient,
-} from "@supabase/auth-helpers-nextjs";
+import { withPageAuth, getUser } from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
+import { notesTableServer } from "@/features/notes/api";
 
 import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";
@@ -32,8 +29,7 @@ const getServerSidePropsHandler: GetServerSideProps<Props> = async (
   const id = context.query.id as string;
   const { user } = await getUser(context);
 
-  const { data: note } = await supabaseServerClient(context)
-    .from<Note>("notes")
+  const { data: note } = await notesTableServer(context)
     .select("*")
     .eq("id", id)
     .single();

@@ -1,11 +1,12 @@
 import { Modal, Button, TextInput, Space, ActionIcon } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 import { useSWRConfig } from "swr";
 
 import { Form } from "@/components/form";
+
+import { notesTableClient } from "../api/notes-table";
 
 import type { Note } from "../types";
 
@@ -31,8 +32,7 @@ export const EditNote = ({ note }: Props) => {
   const handleSubmit = async (formData: EditNoteFormData) => {
     setIsLoading(true);
 
-    const { error } = await supabaseClient
-      .from<Note>("notes")
+    const { error } = await notesTableClient
       .update({ content: formData.content })
       .eq("id", note.id)
       .single();

@@ -65,7 +65,7 @@ const Login: NextPage = () => {
                 {...register("password", { required: true })}
               />
 
-              <Button type="submit" fullWidth mt="xl" disabled={isLoading}>
+              <Button type="submit" fullWidth mt="xl" loading={isLoading}>
                 Sign in
               </Button>
             </>

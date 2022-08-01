@@ -3,21 +3,35 @@ import { NotificationsProvider } from "@mantine/notifications";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { UserProvider } from "@supabase/auth-helpers-react";
 
+import { Head } from "@/components/head";
+
 import type { AppProps } from "next/app";
 
-const App = ({ Component, pageProps }: AppProps) => {
+type MantineProvidersProps = {
+  children: React.ReactNode;
+};
+
+const MantineProviders = ({ children }: MantineProvidersProps) => {
   return (
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS
       theme={{ colorScheme: "dark" }}
     >
-      <NotificationsProvider>
-        <UserProvider supabaseClient={supabaseClient}>
-          <Component {...pageProps} />
-        </UserProvider>
-      </NotificationsProvider>
+      <NotificationsProvider>{children}</NotificationsProvider>
     </MantineProvider>
+  );
+};
+
+const App = ({ Component, pageProps }: AppProps) => {
+  return (
+    <MantineProviders>
+      <UserProvider supabaseClient={supabaseClient}>
+        <Head title="Notes" />
+
+        <Component {...pageProps} />
+      </UserProvider>
+    </MantineProviders>
   );
 };
 
