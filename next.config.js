@@ -4,7 +4,6 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     newNextLinkBehavior: true,
-    images: { allowFutureImage: true },
     legacyBrowsers: false,
     browsersListForSwc: true,
   },
