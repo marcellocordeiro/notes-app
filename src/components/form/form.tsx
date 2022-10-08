@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import type {
   UseFormReturn,
   UseFormProps,
+  FieldValues,
   SubmitHandler,
 } from "react-hook-form";
 
-type FormProps<TFormValues> = {
+type FormProps<TFormValues extends FieldValues> = {
   id?: string;
   options?: UseFormProps<TFormValues>;
   className?: string;
