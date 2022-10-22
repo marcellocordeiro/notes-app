@@ -1,6 +1,6 @@
 import { Modal, Button, TextInput, Space, ActionIcon } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 import { useSWRConfig } from "swr";
@@ -18,6 +18,8 @@ type EditNoteFormData = {
 };
 
 export const EditNote = ({ note }: Props) => {
+  const supabaseClient = useSupabaseClient();
+
   const { mutate } = useSWRConfig();
 
   const [opened, setOpened] = useState(false);
@@ -32,7 +34,7 @@ export const EditNote = ({ note }: Props) => {
     setIsLoading(true);
 
     const { error } = await supabaseClient
-      .from<Note>("notes")
+      .from("notes")
       .update({ content: formData.content })
       .eq("id", note.id)
       .single();

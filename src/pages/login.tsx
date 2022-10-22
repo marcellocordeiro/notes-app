@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -21,6 +21,8 @@ type LoginFormData = {
 };
 
 const Login: NextPage = () => {
+  const supabaseClient = useSupabaseClient();
+
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -29,7 +31,10 @@ const Login: NextPage = () => {
 
     setIsLoading(true);
 
-    const { error } = await supabaseClient.auth.signIn({ email, password });
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
+    });
 
     if (error != null) {
       showNotification({

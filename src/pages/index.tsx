@@ -1,5 +1,5 @@
 import { Container, Table, ScrollArea, Group, Anchor } from "@mantine/core";
-import { withPageAuth, getUser } from "@supabase/auth-helpers-nextjs";
+import { withPageAuth } from "@supabase/auth-helpers-nextjs";
 import NextLink from "next/link";
 import useSWR from "swr";
 
@@ -61,17 +61,8 @@ const Notes: NextPage<Props> = ({ user }) => {
   );
 };
 
-const getServerSidePropsHandler: GetServerSideProps<Props> = async (
-  context
-) => {
-  const { user } = await getUser(context);
-
-  return { props: { user } };
-};
-
-export const getServerSideProps = withPageAuth({
+export const getServerSideProps: GetServerSideProps<Props> = withPageAuth({
   redirectTo: "/login",
-  getServerSideProps: getServerSidePropsHandler,
 });
 
 export default Notes;

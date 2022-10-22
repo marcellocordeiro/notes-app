@@ -1,12 +1,11 @@
 import { Modal, Button, Group, TextInput, Space } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
 
 import { Form } from "@/components/form";
 
-import type { Note } from "../types";
 import type { User } from "@/features/user";
 
 type Props = {
@@ -18,6 +17,8 @@ type AddNoteFormData = {
 };
 
 export const AddNote = ({ userId }: Props) => {
+  const supabaseClient = useSupabaseClient();
+
   const { mutate } = useSWRConfig();
 
   const [opened, setOpened] = useState(false);
@@ -32,7 +33,7 @@ export const AddNote = ({ userId }: Props) => {
     setIsLoading(true);
 
     const { error } = await supabaseClient
-      .from<Note>("notes")
+      .from("notes")
       .insert({ content: formData.content, user_id: userId })
       .single();
 

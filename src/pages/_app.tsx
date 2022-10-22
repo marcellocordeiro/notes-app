@@ -1,10 +1,12 @@
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { UserProvider } from "@supabase/auth-helpers-react";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import { useState } from "react";
 
 import { Head } from "@/components/head";
 
+import type { Session } from "@supabase/auth-helpers-react";
 import type { AppProps } from "next/app";
 
 type MantineProvidersProps = {
@@ -23,14 +25,24 @@ const MantineProviders = ({ children }: MantineProvidersProps) => {
   );
 };
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({
+  Component,
+  pageProps,
+}: AppProps<{
+  initialSession: Session;
+}>) => {
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+
   return (
     <MantineProviders>
-      <UserProvider supabaseClient={supabaseClient}>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
         <Head title="Notes" />
 
         <Component {...pageProps} />
-      </UserProvider>
+      </SessionContextProvider>
     </MantineProviders>
   );
 };

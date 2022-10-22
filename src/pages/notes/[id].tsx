@@ -1,9 +1,5 @@
 import { Container, Text } from "@mantine/core";
-import {
-  withPageAuth,
-  getUser,
-  supabaseServerClient,
-} from "@supabase/auth-helpers-nextjs";
+import { withPageAuth } from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
 
@@ -26,28 +22,23 @@ const NoteById: NextPage<Props> = ({ user, note }) => {
   );
 };
 
-const getServerSidePropsHandler: GetServerSideProps<Props> = async (
-  context
-) => {
-  const id = context.query.id as string;
-  const { user } = await getUser(context);
-
-  const { data: note } = await supabaseServerClient(context)
-    .from<Note>("notes")
-    .select()
-    .eq("id", id)
-    .single();
-
-  if (note == null) {
-    return { notFound: true };
-  }
-
-  return { props: { user, note } };
-};
-
-export const getServerSideProps = withPageAuth({
+export const getServerSideProps: GetServerSideProps<Props> = withPageAuth({
   redirectTo: "/login",
-  getServerSideProps: getServerSidePropsHandler,
+  async getServerSideProps(context, supabase) {
+    const id = context.query.id as string;
+
+    const { data: note } = await supabase
+      .from("notes")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (note == null) {
+      return { notFound: true };
+    }
+
+    return { props: { note } };
+  },
 });
 
 export default NoteById;
