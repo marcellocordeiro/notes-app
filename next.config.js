@@ -2,11 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    newNextLinkBehavior: true,
-    legacyBrowsers: false,
-    browsersListForSwc: true,
-  },
+  swcMinify: true,
 };
 
 module.exports = nextConfig;
