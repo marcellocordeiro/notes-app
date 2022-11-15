@@ -1,5 +1,5 @@
 import { Container, Table, ScrollArea, Group, Anchor } from "@mantine/core";
-import { withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import NextLink from "next/link";
 import useSWR from "swr";
 
@@ -61,8 +61,28 @@ const Notes: NextPage<Props> = ({ user }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = withPageAuth({
-  redirectTo: "/login",
-});
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const supabase = createServerSupabaseClient(context);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session == null) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: session.user,
+    },
+  };
+};
 
 export default Notes;

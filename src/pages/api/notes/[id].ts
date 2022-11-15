@@ -1,13 +1,18 @@
-import { withApiAuth } from "@supabase/auth-helpers-nextjs";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
-import type { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse,
-  supabase: SupabaseClient
-) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const supabase = createServerSupabaseClient({ req, res });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session == null) {
+    return res.status(401);
+  }
+
   const id = req.query.id as string;
 
   switch (req.method) {
@@ -38,4 +43,4 @@ const handler = async (
   }
 };
 
-export default withApiAuth(handler);
+export default handler;

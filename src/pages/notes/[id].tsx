@@ -1,5 +1,5 @@
 import { Container, Text } from "@mantine/core";
-import { withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
 
@@ -22,23 +22,41 @@ const NoteById: NextPage<Props> = ({ user, note }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = withPageAuth({
-  redirectTo: "/login",
-  async getServerSideProps(context, supabase) {
-    const id = context.query.id as string;
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const supabase = createServerSupabaseClient(context);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-    const { data: note } = await supabase
-      .from("notes")
-      .select("*")
-      .eq("id", id)
-      .single();
+  if (session == null) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
-    if (note == null) {
-      return { notFound: true };
-    }
+  const id = context.query.id as string;
 
-    return { props: { note } };
-  },
-});
+  const { data: note } = await supabase
+    .from("notes")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (note == null) {
+    return { notFound: true };
+  }
+
+  return {
+    props: {
+      user: session.user,
+      note,
+    },
+  };
+};
 
 export default NoteById;
