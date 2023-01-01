@@ -1,10 +1,12 @@
-import { Modal, Button, Group, TextInput, Space } from "@mantine/core";
+import { Group, TextInput, Space } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
 
+import { Button } from "@/components/button";
 import { Form } from "@/components/form";
+import { Modal } from "@/components/modal";
 
 import type { User } from "@/features/user";
 

@@ -1,7 +1,8 @@
-import { Container, Text } from "@mantine/core";
+import { Container } from "@mantine/core";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
+import { Text } from "@/components/text";
 
 import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";

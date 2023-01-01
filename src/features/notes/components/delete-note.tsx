@@ -1,9 +1,13 @@
-import { Modal, Button, Space, ActionIcon, Text, Group } from "@mantine/core";
+import { Space, ActionIcon, Group } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useSWRConfig } from "swr";
+
+import { Button } from "@/components/button";
+import { Modal } from "@/components/modal";
+import { Text } from "@/components/text";
 
 import type { Note } from "../types";
 
@@ -59,7 +63,7 @@ export const DeleteNote = ({ note }: Props) => {
 
         <Group position="right">
           <Button onClick={() => setOpened(false)}>No</Button>
-          <Button color="red" loading={isLoading} onClick={handleSubmit}>
+          <Button variant="danger" loading={isLoading} onClick={handleSubmit}>
             Yes
           </Button>
         </Group>

@@ -1,5 +1,4 @@
 import {
-  Button,
   Container,
   createStyles,
   Group,
@@ -8,6 +7,8 @@ import {
 } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
+
+import { Button } from "./button";
 
 import type { User } from "@supabase/supabase-js";
 
