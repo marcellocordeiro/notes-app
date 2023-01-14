@@ -1,9 +1,9 @@
-import { Text as BaseText } from "@mantine/core";
+import { Text as MantineText } from "@mantine/core";
 
 export type TextProps = {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 };
 
-export function Text({ ...props }: TextProps) {
-  return <BaseText {...props} />;
+export function Text({ children }: TextProps) {
+  return <MantineText>{children}</MantineText>;
 }

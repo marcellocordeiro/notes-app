@@ -15,15 +15,9 @@ type FormProps<TFormValues extends FieldValues> = {
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
 };
 
-export const Form = <
+export function Form<
   TFormValues extends Record<string, unknown> = Record<string, unknown>
->({
-  id,
-  options,
-  className,
-  onSubmit,
-  children,
-}: FormProps<TFormValues>) => {
+>({ id, options, className, onSubmit, children }: FormProps<TFormValues>) {
   const methods = useForm<TFormValues>({ ...options });
 
   return (
@@ -35,4 +29,4 @@ export const Form = <
       {children(methods)}
     </form>
   );
-};
+}

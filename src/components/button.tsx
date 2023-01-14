@@ -1,28 +1,41 @@
-import { Button as BaseButton } from "@mantine/core";
+import { Button as MantineButton } from "@mantine/core";
+
+import type { ButtonProps as MantineButtonProps } from "@mantine/core";
 
 const variants = {
   primary: "blue",
   danger: "red",
 };
 
-type BaseButtonProps = React.ComponentProps<"button">;
-
 export type ButtonProps = {
+  type?: MantineButtonProps["type"];
   variant?: keyof typeof variants;
-  loading?: boolean;
-  type?: BaseButtonProps["type"];
-  children: BaseButtonProps["children"];
-  onClick?: BaseButtonProps["onClick"];
+  fullWidth?: boolean;
+  mt?: MantineButtonProps["mt"];
+  isLoading?: boolean;
+  onClick?: () => void;
+  children: React.ReactNode;
 };
 
-export const Button = ({
+export function Button({
+  type = "button",
   variant = "primary",
+  fullWidth = false,
+  mt,
+  isLoading = false,
+  onClick,
   children,
-  ...props
-}: ButtonProps) => {
+}: ButtonProps) {
   return (
-    <BaseButton color={variants[variant]} {...props}>
+    <MantineButton
+      type={type}
+      color={variants[variant]}
+      fullWidth={fullWidth}
+      mt={mt}
+      loading={isLoading}
+      onClick={onClick}
+    >
       {children}
-    </BaseButton>
+    </MantineButton>
   );
-};
+}

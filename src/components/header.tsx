@@ -2,7 +2,7 @@ import {
   Container,
   createStyles,
   Group,
-  Header as BaseHeader,
+  Header as MantineHeader,
   Text,
 } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -25,7 +25,7 @@ const useStyles = createStyles({
   },
 });
 
-export const Header = ({ user }: Props) => {
+export function Header({ user }: Props) {
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
 
@@ -37,7 +37,7 @@ export const Header = ({ user }: Props) => {
   };
 
   return (
-    <BaseHeader height={60}>
+    <MantineHeader height={60}>
       <Container className={classes.inner}>
         <Text>{`${user.email ?? ""}'s notes`}</Text>
 
@@ -45,6 +45,6 @@ export const Header = ({ user }: Props) => {
           <Button onClick={handleSignOut}>Sign out</Button>
         </Group>
       </Container>
-    </BaseHeader>
+    </MantineHeader>
   );
-};
+}

@@ -1,12 +1,10 @@
-import { ActionIcon as BaseIconButton } from "@mantine/core";
-
-type BaseIconButtonProps = React.ComponentProps<"button">;
+import { ActionIcon as MantineIconButton } from "@mantine/core";
 
 export type IconButtonProps = {
-  children: BaseIconButtonProps["children"];
-  onClick?: BaseIconButtonProps["onClick"];
+  onClick?: () => void;
+  children: React.ReactNode;
 };
 
-export const IconButton = ({ children, ...props }: IconButtonProps) => {
-  return <BaseIconButton {...props}>{children}</BaseIconButton>;
-};
+export function IconButton({ onClick, children }: IconButtonProps) {
+  return <MantineIconButton onClick={onClick}>{children}</MantineIconButton>;
+}

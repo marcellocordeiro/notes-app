@@ -6,14 +6,14 @@ import { Text } from "@/components/text";
 
 import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 
 type Props = {
   user: User;
   note: Note;
 };
 
-const NoteById: NextPage<Props> = ({ user, note }) => {
+export default function NoteById({ user, note }: Props) {
   return (
     <Layout user={user}>
       <Container>
@@ -21,7 +21,7 @@ const NoteById: NextPage<Props> = ({ user, note }) => {
       </Container>
     </Layout>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
@@ -59,5 +59,3 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     },
   };
 };
-
-export default NoteById;

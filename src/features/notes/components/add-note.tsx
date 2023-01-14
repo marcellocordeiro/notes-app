@@ -1,4 +1,4 @@
-import { Group, TextInput, Space } from "@mantine/core";
+import { TextInput, Space } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
@@ -8,17 +8,15 @@ import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Modal } from "@/components/modal";
 
-import type { User } from "@/features/user";
-
 type Props = {
-  userId: User["id"];
+  userId: string;
 };
 
 type AddNoteFormData = {
   content: string;
 };
 
-export const AddNote = ({ userId }: Props) => {
+export function AddNote({ userId }: Props) {
   const supabaseClient = useSupabaseClient();
 
   const { mutate } = useSWRConfig();
@@ -55,7 +53,9 @@ export const AddNote = ({ userId }: Props) => {
 
   return (
     <>
-      <Modal title="Add note" opened={opened} onClose={() => setOpened(false)}>
+      <Button onClick={() => setOpened(true)}>Add note</Button>
+
+      <Modal title="Add note" isOpen={opened} onClose={() => setOpened(false)}>
         <Form onSubmit={handleSubmit}>
           {({ register }) => (
             <>
@@ -67,17 +67,13 @@ export const AddNote = ({ userId }: Props) => {
 
               <Space h="md" />
 
-              <Button type="submit" loading={isLoading}>
+              <Button type="submit" isLoading={isLoading}>
                 Add
               </Button>
             </>
           )}
         </Form>
       </Modal>
-
-      <Group>
-        <Button onClick={() => setOpened(true)}>Add note</Button>
-      </Group>
     </>
   );
-};
+}

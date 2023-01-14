@@ -9,7 +9,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const Layout = ({ user, children }: Props) => {
+export function Layout({ user, children }: Props) {
   return (
     <AppShell
       padding="md"
@@ -26,4 +26,4 @@ export const Layout = ({ user, children }: Props) => {
       {children}
     </AppShell>
   );
-};
+}

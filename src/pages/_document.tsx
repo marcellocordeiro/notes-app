@@ -1,16 +1,15 @@
 import { createGetInitialProps } from "@mantine/next";
-import Document, { Head, Html, Main, NextScript } from "next/document";
+import NextDocument, { Head, Html, Main, NextScript } from "next/document";
 
 const getInitialProps = createGetInitialProps();
 
-export default class _Document extends Document {
+export default class Document extends NextDocument {
   static getInitialProps = getInitialProps;
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head />
-
         <body>
           <Main />
           <NextScript />
@@ -21,20 +20,17 @@ export default class _Document extends Document {
 }
 
 /*
-import { Head, Html, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document";
 
-const Document = () => (
-  <Html lang="en">
-    <Head>
-      <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
-    </Head>
-
-    <body>
-      <Main />
-      <NextScript />
-    </body>
-  </Html>
-);
-
-export default Document;
+export default function Document() {
+  return (
+    <Html lang="en">
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
 */

@@ -15,7 +15,7 @@ type Props = {
   note: Note;
 };
 
-export const DeleteNote = ({ note }: Props) => {
+export function DeleteNote({ note }: Props) {
   const supabaseClient = useSupabaseClient();
 
   const { mutate } = useSWRConfig();
@@ -52,9 +52,13 @@ export const DeleteNote = ({ note }: Props) => {
 
   return (
     <>
+      <ActionIcon color="red" onClick={() => setOpened(true)}>
+        <HiOutlineTrash size={16} />
+      </ActionIcon>
+
       <Modal
         title="Delete note"
-        opened={opened}
+        isOpen={opened}
         onClose={() => setOpened(false)}
       >
         <Text>Are you sure do you want to remove this note?</Text>
@@ -63,15 +67,11 @@ export const DeleteNote = ({ note }: Props) => {
 
         <Group position="right">
           <Button onClick={() => setOpened(false)}>No</Button>
-          <Button variant="danger" loading={isLoading} onClick={handleSubmit}>
+          <Button variant="danger" isLoading={isLoading} onClick={handleSubmit}>
             Yes
           </Button>
         </Group>
       </Modal>
-
-      <ActionIcon color="red" onClick={() => setOpened(true)}>
-        <HiOutlineTrash size={16} />
-      </ActionIcon>
     </>
   );
-};
+}

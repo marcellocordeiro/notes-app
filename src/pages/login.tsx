@@ -13,14 +13,12 @@ import { useState } from "react";
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 
-import type { NextPage } from "next";
-
 type LoginFormData = {
   email: string;
   password: string;
 };
 
-const Login: NextPage = () => {
+export default function Login() {
   const supabaseClient = useSupabaseClient();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -70,8 +68,7 @@ const Login: NextPage = () => {
                 {...register("password", { required: true })}
               />
 
-              {/* fullWidth mt="xl" */}
-              <Button type="submit" loading={isLoading}>
+              <Button type="submit" fullWidth mt="xl" isLoading={isLoading}>
                 Sign in
               </Button>
             </>
@@ -80,6 +77,4 @@ const Login: NextPage = () => {
       </Paper>
     </Container>
   );
-};
-
-export default Login;
+}

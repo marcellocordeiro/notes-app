@@ -3,7 +3,10 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import type { Note } from "@/features/notes";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<Note[]>) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Note[]>
+) {
   const supabase = createServerSupabaseClient({ req, res });
 
   const {
@@ -24,6 +27,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Note[]>) => {
   }
 
   return res.status(200).json(notes);
-};
-
-export default handler;
+}

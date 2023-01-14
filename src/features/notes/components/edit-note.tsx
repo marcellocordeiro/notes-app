@@ -19,7 +19,7 @@ type EditNoteFormData = {
   content: string;
 };
 
-export const EditNote = ({ note }: Props) => {
+export function EditNote({ note }: Props) {
   const supabaseClient = useSupabaseClient();
 
   const { mutate } = useSWRConfig();
@@ -57,7 +57,11 @@ export const EditNote = ({ note }: Props) => {
 
   return (
     <>
-      <Modal title="Edit note" opened={opened} onClose={() => setOpened(false)}>
+      <ActionIcon onClick={() => setOpened(true)}>
+        <HiOutlinePencil size={16} />
+      </ActionIcon>
+
+      <Modal title="Edit note" isOpen={opened} onClose={() => setOpened(false)}>
         <Form
           onSubmit={handleSubmit}
           options={{ defaultValues: { content: note.content } }}
@@ -72,17 +76,13 @@ export const EditNote = ({ note }: Props) => {
 
               <Space h="md" />
 
-              <Button type="submit" loading={isLoading}>
+              <Button type="submit" isLoading={isLoading}>
                 Save
               </Button>
             </>
           )}
         </Form>
       </Modal>
-
-      <ActionIcon onClick={() => setOpened(true)}>
-        <HiOutlinePencil size={16} />
-      </ActionIcon>
     </>
   );
-};
+}

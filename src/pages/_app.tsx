@@ -9,6 +9,28 @@ import { Head } from "@/components/head";
 import type { Session } from "@supabase/auth-helpers-react";
 import type { AppProps } from "next/app";
 
+export default function App({
+  Component,
+  pageProps,
+}: AppProps<{
+  initialSession: Session;
+}>) {
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+
+  return (
+    <MantineProviders>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
+        <Head title="Notes" />
+
+        <Component {...pageProps} />
+      </SessionContextProvider>
+    </MantineProviders>
+  );
+}
+
 type MantineProvidersProps = {
   children: React.ReactNode;
 };
@@ -24,27 +46,3 @@ const MantineProviders = ({ children }: MantineProvidersProps) => {
     </MantineProvider>
   );
 };
-
-const App = ({
-  Component,
-  pageProps,
-}: AppProps<{
-  initialSession: Session;
-}>) => {
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
-
-  return (
-    <MantineProviders>
-      <SessionContextProvider
-        supabaseClient={supabaseClient}
-        initialSession={pageProps.initialSession}
-      >
-        <Head title="Notes" />
-
-        <Component {...pageProps} />
-      </SessionContextProvider>
-    </MantineProviders>
-  );
-};
-
-export default App;
