@@ -4,6 +4,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 import { useSWRConfig } from "swr";
+import { z } from "zod";
 
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
@@ -15,20 +16,22 @@ type Props = {
   note: Note;
 };
 
-type EditNoteFormData = {
-  content: string;
-};
+const schema = z.object({
+  content: z.string().min(1),
+});
+
+type EditNoteFormData = z.infer<typeof schema>;
 
 export function EditNote({ note }: Props) {
   const supabaseClient = useSupabaseClient();
 
   const { mutate } = useSWRConfig();
 
-  const [opened, setOpened] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleComplete = () => {
-    setOpened(false);
+    setIsOpen(false);
     setIsLoading(false);
   };
 
@@ -57,20 +60,22 @@ export function EditNote({ note }: Props) {
 
   return (
     <>
-      <ActionIcon onClick={() => setOpened(true)}>
+      <ActionIcon onClick={() => setIsOpen(true)}>
         <HiOutlinePencil size={16} />
       </ActionIcon>
 
-      <Modal title="Edit note" isOpen={opened} onClose={() => setOpened(false)}>
+      <Modal title="Edit note" isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Form
+          schema={schema}
           onSubmit={handleSubmit}
           options={{ defaultValues: { content: note.content } }}
         >
-          {({ register }) => (
+          {({ register, formState: { errors } }) => (
             <>
               <TextInput
                 label="Note"
                 autoComplete="off"
+                error={errors.content?.message}
                 {...register("content", { required: true })}
               />
 

@@ -3,6 +3,7 @@ import { showNotification } from "@mantine/notifications";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
+import { z } from "zod";
 
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
@@ -12,20 +13,22 @@ type Props = {
   userId: string;
 };
 
-type AddNoteFormData = {
-  content: string;
-};
+const schema = z.object({
+  content: z.string().min(1),
+});
+
+type AddNoteFormData = z.infer<typeof schema>;
 
 export function AddNote({ userId }: Props) {
   const supabaseClient = useSupabaseClient();
 
   const { mutate } = useSWRConfig();
 
-  const [opened, setOpened] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleComplete = () => {
-    setOpened(false);
+    setIsOpen(false);
     setIsLoading(false);
   };
 
@@ -53,15 +56,16 @@ export function AddNote({ userId }: Props) {
 
   return (
     <>
-      <Button onClick={() => setOpened(true)}>Add note</Button>
+      <Button onClick={() => setIsOpen(true)}>Add note</Button>
 
-      <Modal title="Add note" isOpen={opened} onClose={() => setOpened(false)}>
-        <Form onSubmit={handleSubmit}>
-          {({ register }) => (
+      <Modal title="Add note" isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Form schema={schema} onSubmit={handleSubmit}>
+          {({ register, formState: { errors } }) => (
             <>
               <TextInput
                 label="New note"
                 autoComplete="off"
+                error={errors.content?.message}
                 {...register("content", { required: true })}
               />
 

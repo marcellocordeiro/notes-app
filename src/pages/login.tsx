@@ -9,20 +9,23 @@ import { showNotification } from "@mantine/notifications";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { z } from "zod";
 
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 
-type LoginFormData = {
-  email: string;
-  password: string;
-};
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(5),
+});
+
+type LoginFormData = z.infer<typeof schema>;
 
 export default function Login() {
   const supabaseClient = useSupabaseClient();
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (formData: LoginFormData) => {
     const { email, password } = formData;
@@ -52,12 +55,13 @@ export default function Login() {
       <Title align="center">Welcome back!</Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <Form onSubmit={handleSubmit}>
-          {({ register }) => (
+        <Form schema={schema} onSubmit={handleSubmit}>
+          {({ register, formState: { errors } }) => (
             <>
               <TextInput
                 label="Email"
                 placeholder="your@email.com"
+                error={errors.email?.message}
                 {...register("email")}
               />
 
@@ -65,6 +69,7 @@ export default function Login() {
                 label="Password"
                 placeholder="Your password"
                 mt="md"
+                error={errors.password?.message}
                 {...register("password", { required: true })}
               />
 

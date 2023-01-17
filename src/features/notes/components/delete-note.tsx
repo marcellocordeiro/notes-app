@@ -20,11 +20,11 @@ export function DeleteNote({ note }: Props) {
 
   const { mutate } = useSWRConfig();
 
-  const [opened, setOpened] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleComplete = () => {
-    setOpened(false);
+    setIsOpen(false);
     setIsLoading(false);
   };
 
@@ -52,21 +52,21 @@ export function DeleteNote({ note }: Props) {
 
   return (
     <>
-      <ActionIcon color="red" onClick={() => setOpened(true)}>
+      <ActionIcon color="red" onClick={() => setIsOpen(true)}>
         <HiOutlineTrash size={16} />
       </ActionIcon>
 
       <Modal
         title="Delete note"
-        isOpen={opened}
-        onClose={() => setOpened(false)}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
       >
         <Text>Are you sure do you want to remove this note?</Text>
 
         <Space h={20} />
 
         <Group position="right">
-          <Button onClick={() => setOpened(false)}>No</Button>
+          <Button onClick={() => setIsOpen(false)}>No</Button>
           <Button variant="danger" isLoading={isLoading} onClick={handleSubmit}>
             Yes
           </Button>

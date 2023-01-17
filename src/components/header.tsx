@@ -1,7 +1,6 @@
 import {
   Container,
   createStyles,
-  Group,
   Header as MantineHeader,
   Text,
 } from "@mantine/core";
@@ -41,9 +40,7 @@ export function Header({ user }: Props) {
       <Container className={classes.inner}>
         <Text>{`${user.email ?? ""}'s notes`}</Text>
 
-        <Group>
-          <Button onClick={handleSignOut}>Sign out</Button>
-        </Group>
+        <Button onClick={handleSignOut}>Sign out</Button>
       </Container>
     </MantineHeader>
   );
