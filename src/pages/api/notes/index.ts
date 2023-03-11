@@ -26,5 +26,5 @@ export default async function handler(
     return res.status(404);
   }
 
-  return res.status(200).json(notes);
+  return res.status(200).json(notes as Note[]);
 }

@@ -1,5 +1,5 @@
 import { MantineProvider } from "@mantine/core";
-import { NotificationsProvider } from "@mantine/notifications";
+import { Notifications } from "@mantine/notifications";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { useState } from "react";
@@ -18,7 +18,13 @@ export default function App({
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   return (
-    <MantineProviders>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{ colorScheme: "dark" }}
+    >
+      <Notifications />
+
       <SessionContextProvider
         supabaseClient={supabaseClient}
         initialSession={pageProps.initialSession}
@@ -27,22 +33,6 @@ export default function App({
 
         <Component {...pageProps} />
       </SessionContextProvider>
-    </MantineProviders>
-  );
-}
-
-type MantineProvidersProps = {
-  children: React.ReactNode;
-};
-
-const MantineProviders = ({ children }: MantineProvidersProps) => {
-  return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{ colorScheme: "dark" }}
-    >
-      <NotificationsProvider>{children}</NotificationsProvider>
     </MantineProvider>
   );
-};
+}
