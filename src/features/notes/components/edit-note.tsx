@@ -11,6 +11,7 @@ import { Form } from "@/components/form";
 import { Modal } from "@/components/modal";
 
 import type { Note } from "../types";
+import type { Database } from "@/types/supabase";
 
 type Props = {
   note: Note;
@@ -23,7 +24,7 @@ const schema = z.object({
 type EditNoteFormData = z.infer<typeof schema>;
 
 export function EditNote({ note }: Props) {
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient<Database>();
 
   const { mutate } = useSWRConfig();
 

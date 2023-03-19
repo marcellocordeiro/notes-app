@@ -9,6 +9,8 @@ import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Modal } from "@/components/modal";
 
+import type { Database } from "@/types/supabase";
+
 type Props = {
   userId: string;
 };
@@ -20,7 +22,7 @@ const schema = z.object({
 type AddNoteFormData = z.infer<typeof schema>;
 
 export function AddNote({ userId }: Props) {
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient<Database>();
 
   const { mutate } = useSWRConfig();
 

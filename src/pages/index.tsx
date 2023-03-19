@@ -27,12 +27,15 @@ export default function Notes({ user }: Props) {
             {item.id}
           </Anchor>
         </td>
+
         <td>
           <Text>{item.user_id}</Text>
         </td>
+
         <td>
           <Text>{item.content}</Text>
         </td>
+
         <td>
           <Group>
             <EditNote note={item} />
@@ -55,12 +58,15 @@ export default function Notes({ user }: Props) {
                 <th>
                   <Text>ID</Text>
                 </th>
+
                 <th>
                   <Text>User ID</Text>
                 </th>
+
                 <th>
                   <Text>Content</Text>
                 </th>
+
                 <th>
                   <Text>Actions</Text>
                 </th>

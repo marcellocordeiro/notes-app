@@ -10,13 +10,14 @@ import { Modal } from "@/components/modal";
 import { Text } from "@/components/text";
 
 import type { Note } from "../types";
+import type { Database } from "@/types/supabase";
 
 type Props = {
   note: Note;
 };
 
 export function DeleteNote({ note }: Props) {
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient<Database>();
 
   const { mutate } = useSWRConfig();
 

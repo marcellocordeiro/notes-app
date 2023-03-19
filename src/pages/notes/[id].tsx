@@ -3,6 +3,7 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
 import { Text } from "@/components/text";
+import { Database } from "@/types/supabase";
 
 import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";
@@ -26,7 +27,16 @@ export default function NoteById({ user, note }: Props) {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  const supabase = createServerSupabaseClient(context);
+  if (typeof context.query.id != "string") {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const supabase = createServerSupabaseClient<Database>(context);
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -40,12 +50,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     };
   }
 
-  const id = context.query.id as string;
-
   const { data: note } = await supabase
     .from("notes")
     .select("*")
-    .eq("id", id)
+    .eq("id", context.query.id)
     .single();
 
   if (note == null) {
@@ -55,7 +63,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   return {
     props: {
       user: session.user,
-      note: note as Note,
+      note,
     },
   };
 };

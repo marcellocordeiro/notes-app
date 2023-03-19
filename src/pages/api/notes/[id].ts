@@ -1,12 +1,22 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
+import type { Database } from "@/types/supabase";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const supabase = createServerSupabaseClient({ req, res });
+  if (typeof req.query.id != "string") {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const supabase = createServerSupabaseClient<Database>({ req, res });
 
   const {
     data: { session },
@@ -16,14 +26,12 @@ export default async function handler(
     return res.status(401);
   }
 
-  const id = req.query.id as string;
-
   switch (req.method) {
     case "GET": {
       const { data } = await supabase
         .from("notes")
         .select("*")
-        .eq("id", id)
+        .eq("id", req.query.id)
         .single();
 
       if (data == null) {

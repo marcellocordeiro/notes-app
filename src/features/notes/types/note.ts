@@ -1,6 +1,3 @@
-export type Note = {
-  id: string;
-  user_id: string;
-  content: string;
-  created_at: string;
-};
+import { Database } from "@/types/supabase";
+
+export type Note = Database["public"]["Tables"]["notes"]["Row"];
