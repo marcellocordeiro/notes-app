@@ -1,5 +1,5 @@
 import { Container } from "@mantine/core";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
 import { Text } from "@/components/text";
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     };
   }
 
-  const supabase = createServerSupabaseClient<Database>(context);
+  const supabase = createPagesServerClient<Database>(context);
   const {
     data: { session },
   } = await supabase.auth.getSession();

@@ -1,4 +1,4 @@
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 
 import type { Note } from "@/features/notes";
 import type { Database } from "@/types/supabase";
@@ -8,7 +8,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Note[]>
 ) {
-  const supabase = createServerSupabaseClient<Database>({ req, res });
+  const supabase = createPagesServerClient<Database>({ req, res });
 
   const {
     data: { session },

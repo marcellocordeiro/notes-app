@@ -1,5 +1,5 @@
 import { Container, Table, ScrollArea, Group, Anchor } from "@mantine/core";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import NextLink from "next/link";
 import useSWR from "swr";
 
@@ -83,7 +83,7 @@ export default function Notes({ user }: Props) {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  const supabase = createServerSupabaseClient(context);
+  const supabase = createPagesServerClient(context);
   const {
     data: { session },
   } = await supabase.auth.getSession();

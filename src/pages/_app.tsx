@@ -1,6 +1,6 @@
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ export default function App({
 }: AppProps<{
   initialSession: Session;
 }>) {
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   return (
     <MantineProvider
