@@ -1,4 +1,3 @@
-import { Container } from "@mantine/core";
 import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 
 import { Layout } from "@/components/layout";
@@ -8,6 +7,7 @@ import { Database } from "@/types/supabase";
 import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";
 import type { GetServerSideProps } from "next";
+import { Container } from "@/components/ui/container";
 
 type Props = {
   user: User;

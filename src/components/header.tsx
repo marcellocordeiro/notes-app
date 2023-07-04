@@ -1,34 +1,21 @@
-import {
-  Container,
-  createStyles,
-  Header as MantineHeader,
-  Text,
-} from "@mantine/core";
+import { Header as HeaderPrimitive } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
 import { Button } from "./button";
+import { Text } from "./text";
 
 import type { User } from "@supabase/supabase-js";
+
+import { Container } from "./ui/container";
 
 type Props = {
   user: User;
 };
 
-const useStyles = createStyles({
-  inner: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: "100%",
-  },
-});
-
 export function Header({ user }: Props) {
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
-
-  const { classes } = useStyles();
 
   const handleSignOut = async () => {
     await supabaseClient.auth.signOut();
@@ -36,12 +23,12 @@ export function Header({ user }: Props) {
   };
 
   return (
-    <MantineHeader height={60}>
-      <Container className={classes.inner}>
+    <HeaderPrimitive height={60}>
+      <Container className="flex h-full items-center justify-between">
         <Text>{`${user.email ?? ""}'s notes`}</Text>
 
         <Button onClick={handleSignOut}>Sign out</Button>
       </Container>
-    </MantineHeader>
+    </HeaderPrimitive>
   );
 }

@@ -10,10 +10,10 @@ import type {
 import type { ZodType, ZodTypeDef } from "zod";
 
 type FormProps<TFormValues extends FieldValues, Schema> = {
+  className?: string;
   id?: string;
   schema?: Schema;
   options?: UseFormProps<TFormValues>;
-  className?: string;
   onSubmit: SubmitHandler<TFormValues>;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
 };
@@ -26,10 +26,10 @@ export function Form<
     unknown
   >
 >({
+  className,
   id,
   schema,
   options,
-  className,
   onSubmit,
   children,
 }: FormProps<TFormValues, Schema>) {
@@ -40,8 +40,8 @@ export function Form<
 
   return (
     <form
-      id={id}
       className={className}
+      id={id}
       onSubmit={methods.handleSubmit(onSubmit)}
     >
       {children(methods)}

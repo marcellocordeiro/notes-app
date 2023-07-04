@@ -1,16 +1,16 @@
-import { Space, ActionIcon, Group } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
+import { ActionIcon, Group } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useSWRConfig } from "swr";
+import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/button";
 import { Modal } from "@/components/modal";
 import { Text } from "@/components/text";
 
-import type { Note } from "../types";
 import type { Database } from "@/types/supabase";
+import { Note } from "../types";
 
 type Props = {
   note: Note;
@@ -38,11 +38,7 @@ export function DeleteNote({ note }: Props) {
       .eq("id", note.id);
 
     if (error != null) {
-      showNotification({
-        title: "Error deleting note",
-        message: error.message,
-        color: "red",
-      });
+      toast.error(`Error deleting note: ${error.message}`);
 
       setIsLoading(false);
     } else {
@@ -63,8 +59,6 @@ export function DeleteNote({ note }: Props) {
         onClose={() => setIsOpen(false)}
       >
         <Text>Are you sure do you want to remove this note?</Text>
-
-        <Space h={20} />
 
         <Group position="right">
           <Button onClick={() => setIsOpen(false)}>No</Button>

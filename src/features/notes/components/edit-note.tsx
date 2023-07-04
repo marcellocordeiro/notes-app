@@ -1,10 +1,10 @@
-import { TextInput, Space, ActionIcon } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
+import { TextInput, ActionIcon } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 import { useSWRConfig } from "swr";
 import { z } from "zod";
+import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
@@ -46,11 +46,7 @@ export function EditNote({ note }: Props) {
       .single();
 
     if (error != null) {
-      showNotification({
-        title: "Error editting note",
-        message: error.message,
-        color: "red",
-      });
+      toast.error(`Error editing note: ${error.message}`);
 
       setIsLoading(false);
     } else {
@@ -79,8 +75,6 @@ export function EditNote({ note }: Props) {
                 error={errors.content?.message}
                 {...register("content", { required: true })}
               />
-
-              <Space h="md" />
 
               <Button type="submit" isLoading={isLoading}>
                 Save
