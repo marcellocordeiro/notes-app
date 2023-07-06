@@ -25,7 +25,7 @@ export default function NoteById({ user, note }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
+  context,
 ) => {
   if (typeof context.query.id != "string") {
     return {

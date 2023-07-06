@@ -82,7 +82,7 @@ export default function Notes({ user }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
+  context,
 ) => {
   const supabase = createPagesServerClient(context);
   const {

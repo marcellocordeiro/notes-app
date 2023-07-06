@@ -24,7 +24,7 @@ export function Form<
     unknown,
     ZodTypeDef,
     unknown
-  >
+  >,
 >({
   className,
   id,
