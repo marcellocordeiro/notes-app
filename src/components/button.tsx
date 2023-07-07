@@ -3,8 +3,8 @@ import { Button as ButtonPrimitive } from "@mantine/core";
 import type { ButtonProps as ButtonPrimitiveProps } from "@mantine/core";
 
 const variants = {
-  primary: "blue",
-  danger: "red",
+  default: "blue",
+  destructive: "red",
 };
 
 export interface ButtonProps {
@@ -19,7 +19,7 @@ export interface ButtonProps {
 export function Button({
   type = "button",
   className,
-  variant = "primary",
+  variant = "default",
   isLoading = false,
   children,
   onClick,

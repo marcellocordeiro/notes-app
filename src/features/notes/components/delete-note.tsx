@@ -62,7 +62,11 @@ export function DeleteNote({ note }: Props) {
 
         <Group position="right">
           <Button onClick={() => setIsOpen(false)}>No</Button>
-          <Button variant="danger" isLoading={isLoading} onClick={handleSubmit}>
+          <Button
+            variant="destructive"
+            isLoading={isLoading}
+            onClick={handleSubmit}
+          >
             Yes
           </Button>
         </Group>

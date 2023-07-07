@@ -1,6 +1,6 @@
 import { AppShell } from "@mantine/core";
 
-import { Header } from "./header";
+import { Header } from "@/components/header";
 
 import type { User } from "@/features/user";
 
