@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-import type {
-  UseFormReturn,
-  UseFormProps,
-  FieldValues,
-  SubmitHandler,
+import {
+  useForm,
+  type FieldValues,
+  type SubmitHandler,
+  type UseFormProps,
+  type UseFormReturn,
 } from "react-hook-form";
+
 import type { ZodType, ZodTypeDef } from "zod";
 
 type FormProps<TFormValues extends FieldValues, Schema> = {

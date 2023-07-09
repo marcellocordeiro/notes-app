@@ -1,16 +1,17 @@
 import { ActionIcon, Group } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useSWRConfig } from "swr";
-import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/button";
 import { Modal } from "@/components/modal";
 import { Text } from "@/components/text";
 
-import type { Database } from "@/types/supabase";
 import { Note } from "../types";
+
+import type { Database } from "@/types/supabase";
 
 type Props = {
   note: Note;

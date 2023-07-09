@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   darkMode: ["class"],
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -75,5 +75,7 @@ module.exports = {
   // for Mantine
   corePlugins: {
     preflight: false,
-  }
+  },
 };
+
+module.exports = config;

@@ -1,10 +1,10 @@
-import { TextInput, ActionIcon } from "@mantine/core";
+import { ActionIcon, TextInput } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { HiOutlinePencil } from "react-icons/hi";
 import { useSWRConfig } from "swr";
 import { z } from "zod";
-import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";

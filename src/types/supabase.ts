@@ -1,3 +1,7 @@
+import { type PostgrestError } from "@supabase/supabase-js";
+
+export type { PostgrestError as DatabaseError };
+
 export type Json =
   | string
   | number

@@ -1,15 +1,15 @@
-import { TextInput } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useSWRConfig } from "swr";
 import { z } from "zod";
-import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
 import { Modal } from "@/components/modal";
+import { TextInput } from "@/components/text-input";
 
-import type { Database } from "@/types/supabase";
+import type { Database, DatabaseError } from "@/types/supabase";
 
 type Props = {
   userId: string;
@@ -29,11 +29,6 @@ export function AddNote({ userId }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleComplete = () => {
-    setIsOpen(false);
-    setIsLoading(false);
-  };
-
   const handleSubmit = async (formData: AddNoteFormData) => {
     setIsLoading(true);
 
@@ -43,13 +38,22 @@ export function AddNote({ userId }: Props) {
       .single();
 
     if (error != null) {
-      toast.error(`Error adding note: ${error.message}`);
-
-      setIsLoading(false);
-    } else {
-      await mutate("/api/notes");
-      handleComplete();
+      handleError(error);
+      return;
     }
+
+    await mutate("/api/notes");
+    handleComplete();
+  };
+
+  const handleError = (error: DatabaseError) => {
+    toast.error(`Error adding note: ${error.message}`);
+    setIsLoading(false);
+  };
+
+  const handleComplete = () => {
+    setIsOpen(false);
+    setIsLoading(false);
   };
 
   return (

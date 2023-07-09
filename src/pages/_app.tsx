@@ -2,15 +2,17 @@ import "@/styles/globals.css";
 
 import { MantineProvider } from "@mantine/core";
 import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
-import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import {
+  SessionContextProvider,
+  type Session,
+} from "@supabase/auth-helpers-react";
 import { useState } from "react";
-import { Toaster } from "@/components/ui/toaster";
 
 import { Head } from "@/components/head";
-
-import type { Session } from "@supabase/auth-helpers-react";
-import type { AppProps } from "next/app";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { Toaster } from "@/components/ui/toaster";
+
+import type { AppProps } from "next/app";
 
 export default function App({
   Component,

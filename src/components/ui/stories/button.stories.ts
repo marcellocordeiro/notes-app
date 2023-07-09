@@ -1,10 +1,10 @@
-import { Button } from "@/components/button";
+import { Button } from "../button";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Button> = {
-  title: "Mantine/Button",
+  title: "Components/Button",
   component: Button,
 };
 

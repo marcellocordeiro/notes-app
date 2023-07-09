@@ -1,17 +1,16 @@
-import { Table, ScrollArea, Group, Anchor } from "@mantine/core";
+import { Anchor, Group, ScrollArea, Table } from "@mantine/core";
 import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import NextLink from "next/link";
 import useSWR from "swr";
 
 import { Layout } from "@/components/layout";
 import { Text } from "@/components/text";
-import { AddNote, DeleteNote, EditNote } from "@/features/notes";
+import { Container } from "@/components/ui/container";
+import { AddNote, DeleteNote, EditNote, type Note } from "@/features/notes";
 import { fetcher } from "@/lib/fetcher";
 
-import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";
 import type { GetServerSideProps } from "next";
-import { Container } from "@/components/ui/container";
 
 type Props = {
   user: User;

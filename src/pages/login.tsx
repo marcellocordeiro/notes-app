@@ -1,13 +1,13 @@
-import { TextInput, PasswordInput, Paper, Title } from "@mantine/core";
+import { Paper, PasswordInput, TextInput, Title } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { z } from "zod";
 import { toast } from "react-hot-toast";
+import { z } from "zod";
 
-import { Container } from "@/components/ui/container";
 import { Button } from "@/components/button";
 import { Form } from "@/components/form";
+import { Container } from "@/components/ui/container";
 
 const schema = z.object({
   email: z.string().email(),
@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   return (
-    <Container className="max-w-md my-6">
+    <Container className="my-6 max-w-md">
       <Title align="center">Welcome back!</Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">

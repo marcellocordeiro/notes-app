@@ -1,6 +1,7 @@
-import { Button as ButtonPrimitive } from "@mantine/core";
-
-import type { ButtonProps as ButtonPrimitiveProps } from "@mantine/core";
+import {
+  Button as ButtonPrimitive,
+  type ButtonProps as ButtonPrimitiveProps,
+} from "@mantine/core";
 
 const variants = {
   default: "blue",
