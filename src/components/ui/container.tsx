@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/utils";
 
 export type ContainerProps = {
   className?: string;
@@ -6,5 +6,5 @@ export type ContainerProps = {
 };
 
 export function Container({ className, children }: ContainerProps) {
-  return <div className={cn("container", className)}>{children}</div>;
+  return <div className={classnames("container", className)}>{children}</div>;
 }

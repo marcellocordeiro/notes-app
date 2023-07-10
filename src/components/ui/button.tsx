@@ -2,9 +2,47 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { classnames } from "@/lib/utils";
 
-const buttonVariants = cva(
+type ButtonPrimitiveProps = React.ComponentPropsWithoutRef<"button">;
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+type Ref = React.ElementRef<"button">;
+
+export interface ButtonProps extends ButtonPrimitiveProps, ButtonVariantProps {
+  isLoading?: boolean;
+  asChild?: boolean;
+}
+
+export const Button = forwardRef<Ref, ButtonProps>(
+  (
+    {
+      className,
+      variant,
+      size,
+      isLoading,
+      children,
+      asChild = false,
+      ...props
+    },
+    ref,
+  ) => {
+    const Component = asChild ? Slot : "button";
+
+    return (
+      <Component
+        className={classnames(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </Component>
+    );
+  },
+);
+
+Button.displayName = "Button";
+
+export const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
@@ -33,44 +71,3 @@ const buttonVariants = cva(
     },
   },
 );
-
-type ButtonPrimitiveProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
-type ButtonVariantProps = VariantProps<typeof buttonVariants>;
-
-export interface ButtonProps extends ButtonVariantProps {
-  className?: string;
-  isLoading?: boolean;
-  children?: React.ReactNode;
-  asChild?: boolean;
-  onClick?: () => void;
-}
-
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      isLoading,
-      children,
-      asChild = false,
-      ...props
-    },
-    ref,
-  ) => {
-    const Component = asChild ? Slot : "button";
-
-    return (
-      <Component
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </Component>
-    );
-  },
-);
-Button.displayName = "Button";
-
-export { Button, buttonVariants };

@@ -15,6 +15,7 @@ const config = {
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:@next/next/core-web-vitals",
+    "plugin:tailwindcss/recommended",
     "prettier",
   ],
   parserOptions: {
@@ -55,6 +56,9 @@ const config = {
     // "react/destructuring-assignment": "warn",
     "react/prop-types": "off",
     "react/no-unstable-nested-components": ["warn", { allowAsProps: true }],
+
+    // tailwindcss
+    "tailwindcss/no-custom-classname": "off",
   },
   settings: {
     react: {

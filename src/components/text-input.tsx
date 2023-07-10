@@ -2,21 +2,16 @@ import {
   TextInput as TextInputPrimitive,
   type TextInputProps as TextInputPrimitiveProps,
 } from "@mantine/core";
+import { forwardRef } from "react";
 
-type InputPrimitive2Props = React.InputHTMLAttributes<HTMLInputElement>;
+type Ref = React.ElementRef<typeof TextInputPrimitive>;
 
-export type TextInputProps = {
-  label?: string;
-  autoComplete?: string;
-  error?: string;
-};
+export type TextInputProps = TextInputPrimitiveProps;
 
-export function TextInput({ label, autoComplete, error }: TextInputProps) {
-  return (
-    <TextInputPrimitive
-      label={label}
-      autoComplete={autoComplete}
-      error={error}
-    />
-  );
-}
+export const TextInput = forwardRef<Ref, TextInputProps>(
+  ({ ...props }, ref) => {
+    return <TextInputPrimitive ref={ref} {...props} />;
+  },
+);
+
+TextInput.displayName = "TextInput";
