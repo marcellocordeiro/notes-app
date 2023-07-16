@@ -4,10 +4,10 @@ import { toast } from "react-hot-toast";
 import { useSWRConfig } from "swr";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/form";
 import { Modal } from "@/components/modal";
 import { TextInput } from "@/components/text-input";
+import { Button } from "@/components/ui/button";
 
 import type { Database, DatabaseError } from "@/types/supabase";
 

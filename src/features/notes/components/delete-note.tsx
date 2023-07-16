@@ -5,9 +5,9 @@ import { toast } from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useSWRConfig } from "swr";
 
-import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/modal";
 import { Text } from "@/components/text";
+import { Button } from "@/components/ui/button";
 
 import { Note } from "../types";
 

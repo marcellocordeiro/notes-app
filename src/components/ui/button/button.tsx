@@ -1,10 +1,10 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
 
+import { Spinner } from "@/components/spinner";
 import { classnames } from "@/lib/utils";
 
 import styles from "./styles.module.css";
-import { Spinner } from "@/components/spinner";
 
 type ButtonPrimitiveProps = React.ComponentPropsWithoutRef<"button">;
 type ButtonVariantProps = VariantProps<typeof buttonVariants>;
