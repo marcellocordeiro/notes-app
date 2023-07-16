@@ -71,7 +71,7 @@ export function AddNote({ userId }: Props) {
                 {...register("content", { required: true })}
               />
 
-              <Button type="submit" isLoading={isLoading}>
+              <Button type="submit" isLoading={isLoading} disabled={isLoading}>
                 Add
               </Button>
             </>

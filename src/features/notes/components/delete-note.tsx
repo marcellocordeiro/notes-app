@@ -9,8 +9,7 @@ import { Modal } from "@/components/modal";
 import { Text } from "@/components/text";
 import { Button } from "@/components/ui/button";
 
-import { Note } from "../types";
-
+import type { Note } from "../types";
 import type { Database } from "@/types/supabase";
 
 interface Props {
@@ -66,6 +65,7 @@ export function DeleteNote({ note }: Props) {
           <Button
             variant="secondary"
             isLoading={isLoading}
+            disabled={isLoading}
             onClick={handleSubmit}
           >
             Yes

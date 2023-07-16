@@ -67,7 +67,7 @@ export default function Login() {
                 {...register("password", { required: true })}
               />
 
-              <Button type="submit" isLoading={isLoading}>
+              <Button type="submit" isLoading={isLoading} disabled={isLoading}>
                 Sign in
               </Button>
             </>

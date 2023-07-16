@@ -77,7 +77,7 @@ export function EditNote({ note }: Props) {
                 {...register("content", { required: true })}
               />
 
-              <Button type="submit" isLoading={isLoading}>
+              <Button type="submit" isLoading={isLoading} disabled={isLoading}>
                 Save
               </Button>
             </>

@@ -6,7 +6,11 @@
   @apply transition;
 
   &:active {
-    filter: brightness(0.8);
+    @apply brightness-75;
+  }
+
+  &:disabled {
+    @apply opacity-50 pointer-events-none;
   }
 }
 
