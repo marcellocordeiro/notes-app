@@ -4,9 +4,9 @@ import { Header } from "./Header";
 
 import "./page.css";
 
-type User = {
+interface User {
   name: string;
-};
+}
 
 export const Page: React.FC = () => {
   const [user, setUser] = React.useState<User>();

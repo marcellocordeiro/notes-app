@@ -5,7 +5,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { z } from "zod";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/form";
 import { Container } from "@/components/ui/container";
 

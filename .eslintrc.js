@@ -20,6 +20,7 @@ const config = {
   ],
   parserOptions: {
     ecmaVersion: "latest",
+    sourceType: "module",
     ecmaFeatures: {
       jsx: true,
     },
@@ -78,8 +79,12 @@ const config = {
     {
       files: ["**/*.ts?(x)"],
       extends: [
-        "plugin:@typescript-eslint/recommended",
-        // "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        // "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/stylistic",
+        // "plugin:@typescript-eslint/strict",
+        "plugin:@typescript-eslint/recommended-type-checked",
+        // "plugin:@typescript-eslint/strict-type-checked",
+        // "plugin:@typescript-eslint/stylistic-type-checked",
         "plugin:import/typescript",
       ],
       parser: "@typescript-eslint/parser",
@@ -89,14 +94,18 @@ const config = {
         project: true,
         tsconfigRootDir: __dirname,
       },
+
+      plugins: ["@typescript-eslint"],
       rules: {
         // @typescript-eslint
         "@typescript-eslint/prefer-optional-chain": "warn",
 
         // @typescript-eslint with type checking
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        /*"@typescript-eslint/await-thenable": "warn",
         "@typescript-eslint/require-await": "warn",
         "@typescript-eslint/consistent-type-exports": "warn",
-        "@typescript-eslint/await-thenable": "warn",
         "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
         "@typescript-eslint/no-unnecessary-condition": "warn",
         "@typescript-eslint/no-unnecessary-type-assertion": "warn",
@@ -104,7 +113,7 @@ const config = {
         "@typescript-eslint/prefer-includes": "warn",
         "@typescript-eslint/prefer-nullish-coalescing": "warn",
         "@typescript-eslint/unbound-method": "warn",
-        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/no-inferrable-types": "warn",*/
       },
     },
   ],

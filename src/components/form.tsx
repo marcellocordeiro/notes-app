@@ -9,14 +9,14 @@ import {
 
 import type { ZodType, ZodTypeDef } from "zod";
 
-type FormProps<TFormValues extends FieldValues, Schema> = {
+interface FormProps<TFormValues extends FieldValues, Schema> {
   className?: string;
   id?: string;
   schema?: Schema;
   options?: UseFormProps<TFormValues>;
   onSubmit: SubmitHandler<TFormValues>;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
-};
+}
 
 export function Form<
   TFormValues extends Record<string, unknown> = Record<string, unknown>,

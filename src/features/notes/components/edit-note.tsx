@@ -1,4 +1,4 @@
-import { ActionIcon, TextInput } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -6,16 +6,17 @@ import { HiOutlinePencil } from "react-icons/hi";
 import { useSWRConfig } from "swr";
 import { z } from "zod";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/form";
 import { Modal } from "@/components/modal";
+import { TextInput } from "@/components/text-input";
 
 import type { Note } from "../types";
 import type { Database } from "@/types/supabase";
 
-type Props = {
+interface Props {
   note: Note;
-};
+}
 
 const schema = z.object({
   content: z.string().min(1),

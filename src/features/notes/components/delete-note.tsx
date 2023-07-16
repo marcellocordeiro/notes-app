@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useSWRConfig } from "swr";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/modal";
 import { Text } from "@/components/text";
 
@@ -13,9 +13,9 @@ import { Note } from "../types";
 
 import type { Database } from "@/types/supabase";
 
-type Props = {
+interface Props {
   note: Note;
-};
+}
 
 export function DeleteNote({ note }: Props) {
   const supabaseClient = useSupabaseClient<Database>();
@@ -64,7 +64,7 @@ export function DeleteNote({ note }: Props) {
         <Group position="right">
           <Button onClick={() => setIsOpen(false)}>No</Button>
           <Button
-            variant="destructive"
+            variant="secondary"
             isLoading={isLoading}
             onClick={handleSubmit}
           >

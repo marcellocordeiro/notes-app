@@ -12,9 +12,9 @@ import { fetcher } from "@/lib/fetcher";
 import type { User } from "@/features/user";
 import type { GetServerSideProps } from "next";
 
-type Props = {
+interface Props {
   user: User;
-};
+}
 
 export default function Notes({ user }: Props) {
   const { data: notes = [] } = useSWR<Note[]>("/api/notes", fetcher);

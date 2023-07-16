@@ -4,10 +4,10 @@ import { Header } from "@/components/header";
 
 import type { User } from "@/features/user";
 
-type Props = {
+interface Props {
   user: User;
   children: React.ReactNode;
-};
+}
 
 export function Layout({ user, children }: Props) {
   return (

@@ -12,6 +12,7 @@ const config: StorybookConfig = {
     {
       name: "@storybook/addon-styling",
       options: {
+        cssModules: true,
         postCss: {
           implementation: require.resolve("postcss"),
         },
@@ -35,4 +36,5 @@ const config: StorybookConfig = {
     return config;
   },
 };
+
 export default config;

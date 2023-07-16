@@ -2,7 +2,6 @@ import type { Preview } from "@storybook/react";
 
 import { withThemeByClassName } from "@storybook/addon-styling";
 
-/* TODO: update import to your tailwind styles file. If you're using Angular, inject this through your angular.json config instead */
 import "../src/styles/globals.css";
 
 const preview: Preview = {
@@ -24,8 +23,6 @@ import { MantineProvider } from "@mantine/core";
 function ThemeWrapper(props: { children: React.ReactNode }) {
   return (
     <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
       theme={{ colorScheme: "dark" }}
     >
       {props.children}
@@ -43,6 +40,6 @@ export const decorators = [
       light: "light",
       dark: "dark",
     },
-    defaultTheme: "light",
+    defaultTheme: "dark",
   }),
 ];

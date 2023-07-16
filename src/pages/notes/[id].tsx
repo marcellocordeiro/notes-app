@@ -9,10 +9,10 @@ import type { Note } from "@/features/notes";
 import type { User } from "@/features/user";
 import type { GetServerSideProps } from "next";
 
-type Props = {
+interface Props {
   user: User;
   note: Note;
-};
+}
 
 export default function NoteById({ user, note }: Props) {
   return (

@@ -23,11 +23,7 @@ export default function App({
   const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{ colorScheme: "dark" }}
-    >
+    <MantineProvider theme={{ colorScheme: "dark" }}>
       <SessionContextProvider
         supabaseClient={supabaseClient}
         initialSession={pageProps.initialSession}
