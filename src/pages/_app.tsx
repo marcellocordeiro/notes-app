@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
 import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
@@ -23,7 +24,7 @@ export default function App({
   const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   return (
-    <MantineProvider theme={{ colorScheme: "dark" }}>
+    <MantineProvider>
       <SessionContextProvider
         supabaseClient={supabaseClient}
         initialSession={pageProps.initialSession}

@@ -52,7 +52,7 @@ export default function Notes({ user }: Props) {
         <AddNote userId={user.id} />
 
         <ScrollArea>
-          <Table sx={{ minWidth: 800 }} verticalSpacing="xs">
+          <Table verticalSpacing="xs">
             <thead>
               <tr>
                 <th>

@@ -60,7 +60,7 @@ export function DeleteNote({ note }: Props) {
       >
         <Text>Are you sure do you want to remove this note?</Text>
 
-        <Group position="right">
+        <Group justify="flex-end">
           <Button onClick={() => setIsOpen(false)}>No</Button>
           <Button
             variant="secondary"

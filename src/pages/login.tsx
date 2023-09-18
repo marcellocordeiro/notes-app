@@ -1,4 +1,4 @@
-import { Paper, PasswordInput, TextInput, Title } from "@mantine/core";
+import { PasswordInput, Title } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { z } from "zod";
 
 import { Form } from "@/components/form";
+import { TextInput } from "@/components/text-input";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
@@ -43,9 +44,9 @@ export default function Login() {
 
   return (
     <Container className="my-6 max-w-md">
-      <Title align="center">Welcome back!</Title>
+      <Title className="text-center">Welcome back!</Title>
 
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+      <div className="mt-10 rounded-md border border-gray-600 p-10 shadow-md">
         <Form
           className="flex flex-col gap-6"
           schema={schema}
@@ -73,7 +74,7 @@ export default function Login() {
             </>
           )}
         </Form>
-      </Paper>
+      </div>
     </Container>
   );
 }

@@ -1,4 +1,3 @@
-import { Header as HeaderPrimitive } from "@mantine/core";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
@@ -22,12 +21,10 @@ export function Header({ user }: Props) {
   };
 
   return (
-    <HeaderPrimitive height={60}>
-      <Container className="flex h-full items-center justify-between">
-        <Text>{`${user.email ?? ""}'s notes`}</Text>
+    <Container className="flex h-full items-center justify-between">
+      <Text>{`${user.email ?? ""}'s notes`}</Text>
 
-        <Button onClick={handleSignOut}>Sign out</Button>
-      </Container>
-    </HeaderPrimitive>
+      <Button onClick={handleSignOut}>Sign out</Button>
+    </Container>
   );
 }
