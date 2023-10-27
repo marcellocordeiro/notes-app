@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from "tailwindcss";
+
 const config = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -49,6 +50,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-};
+} satisfies Config;
 
-module.exports = config;
+export default config;
