@@ -11,19 +11,12 @@ type Props = {
 
 export function Layout({ user, children }: Props) {
   return (
-    <AppShell
-      padding="md"
-      header={<Header user={user} />}
-      styles={(theme) => ({
-        main: {
-          backgroundColor:
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[8]
-              : theme.colors.gray[0],
-        },
-      })}
-    >
-      {children}
+    <AppShell padding="md" header={{ height: 60 }}>
+      <AppShell.Header>
+        <Header user={user} />
+      </AppShell.Header>
+
+      <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
   );
 }

@@ -8,7 +8,7 @@ const variants = {
 };
 
 export type ButtonProps = {
-  type?: MantineButtonProps["type"];
+  type?: "submit" | "button";
   variant?: keyof typeof variants;
   fullWidth?: boolean;
   mt?: MantineButtonProps["mt"];

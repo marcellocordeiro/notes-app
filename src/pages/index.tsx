@@ -1,4 +1,4 @@
-import { Container, Table, ScrollArea, Group, Anchor } from "@mantine/core";
+import { Container, Table, Group, Anchor } from "@mantine/core";
 import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import NextLink from "next/link";
 import useSWR from "swr";
@@ -51,37 +51,37 @@ export default function Notes({ user }: Props) {
       <Container>
         <AddNote userId={user.id} />
 
-        <ScrollArea>
-          <Table sx={{ minWidth: 800 }} verticalSpacing="xs">
-            <thead>
-              <tr>
-                <th>
+        <Table.ScrollContainer minWidth={800}>
+          <Table verticalSpacing="xs">
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>
                   <Text>ID</Text>
-                </th>
+                </Table.Th>
 
-                <th>
+                <Table.Th>
                   <Text>User ID</Text>
-                </th>
+                </Table.Th>
 
-                <th>
+                <Table.Th>
                   <Text>Content</Text>
-                </th>
+                </Table.Th>
 
-                <th>
+                <Table.Th>
                   <Text>Actions</Text>
-                </th>
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
+                </Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
           </Table>
-        </ScrollArea>
+        </Table.ScrollContainer>
       </Container>
     </Layout>
   );
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
+  context,
 ) => {
   const supabase = createPagesServerClient(context);
   const {

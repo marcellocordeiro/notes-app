@@ -1,3 +1,5 @@
+import "@mantine/core/styles.css";
+
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
@@ -18,11 +20,7 @@ export default function App({
   const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{ colorScheme: "dark" }}
-    >
+    <MantineProvider>
       <Notifications />
 
       <SessionContextProvider

@@ -52,7 +52,7 @@ export default function Login() {
 
   return (
     <Container size={420} my={40}>
-      <Title align="center">Welcome back!</Title>
+      <Title ta="center">Welcome back!</Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <Form schema={schema} onSubmit={handleSubmit}>

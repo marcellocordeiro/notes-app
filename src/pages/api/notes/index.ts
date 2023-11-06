@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Note[]>
+  res: NextApiResponse<Note[]>,
 ) {
   const supabase = createPagesServerClient<Database>({ req, res });
 

@@ -66,7 +66,7 @@ export function DeleteNote({ note }: Props) {
 
         <Space h={20} />
 
-        <Group position="right">
+        <Group>
           <Button onClick={() => setIsOpen(false)}>No</Button>
           <Button variant="danger" isLoading={isLoading} onClick={handleSubmit}>
             Yes
